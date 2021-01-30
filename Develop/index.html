@@ -30,23 +30,106 @@
     </header>
     <div class="container">
       <!-- Timeblocks go here -->
-      <div class="row g-0">
-        <div class="col-1 border">.col-sm-6 .col-md-8</div>
-        <div class="col-10 border">.col-6 .col-md-4</div>
-        <div class="col-1 border">.col-6 .col-md-4</div>
-      </div>
     </div>
-    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
     <script type="text/javascript">
-      console.log("test")
 
-      $('#currentDay').text(moment().format('MMMM Do YYYY, h:mm:ss a'));
+      var timeOfDayAm = [
+       "9",
+       "10",
+       "11",
+      ];
+      
+      var timeOfDayPm = [
+      "12",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      ];
 
+      var currentTime = moment().format("LT");
+      currentTime
+      console.log(+currentTime);
+
+      $("#currentDay").text(moment().format("MMMM Do YYYY, h:mm:ss a"));
+
+      $.each(timeOfDayAm, function (i) {
+        // create a variable for the current time pulled from the array by index
+        var hour = timeOfDayAm[i];
+
+        // Creates a new div to hold the time column
+        var col = $('<div>');
+        col.addClass('col-1 border hour');
+        col.text(hour + "AM");
+
+        // creates new field for input in middle column
+        var inputField = $('<input>');
+        inputField.addClass('col-10 border');
+        inputField.attr('id', [i] + 'userInput');
+
+        // creates a save button 
+        var saveBtn = $('<button>');
+        saveBtn.addClass('col-1 border saveBtn');
+        saveBtn.attr('id', [i] + 'userSave');
+        saveBtn.text('Save');
+        
+        // Creates the row that will hold the time, input field and save button
+        var row = $('<div>');
+        row.addClass('row');
+        row.append(col, inputField, saveBtn);
+
+        // execute
+        if (hour > currentTime) {
+
+        }
+
+        // Appends the new row to the container div
+        $('.container').append(row);
+      })
+      
+      $.each(timeOfDayPm, function (i) {
+        // create a variable for the current time pulled from the array by index
+        var hour = timeOfDayPm[i];
+
+        // Creates a new div to hold the time column
+        var col = $('<div>');
+        col.addClass('col-1 border hour');
+        col.text(hour + "PM");
+
+        // creates new field for input in middle column
+        var inputField = $('<input>');
+        inputField.addClass('col-10 border');
+        inputField.attr('id', [i] + 'userInput');
+
+        // creates a save button 
+        var saveBtn = $('<button>');
+        saveBtn.addClass('col-1 border saveBtn');
+        saveBtn.attr('id', [i] + 'userSave');
+        saveBtn.text('Save');
+        
+        // Creates the row that will hold the time, input field and save button
+        var row = $('<div>');
+        row.addClass('row');
+        row.append(col, inputField, saveBtn);
+
+        // Appends the new row to the container div
+        $('.container').append(row);
+      })
+
+
+
+      // function timeCheck() {
+      //   if ($('.hour') < currentTime) {
+      //     $('.hour').addClass('.past');
+      //   }
+      // }
+
+      // timeCheck();
     </script>
-    
   </body>
 </html>

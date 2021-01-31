@@ -37,40 +37,41 @@
 
     <script type="text/javascript">
 
-      var timeOfDayAm = [
-       "9",
-       "10",
-       "11",
+      var timeOfDay = [
+       "9 AM",
+       "10 AM",
+       "11 AM",
+       "12 PM",
+       "1 PM",
+       "2 PM",
+       "3 PM",
+       "4 PM",
+       "5 PM",
       ];
       
-      var timeOfDayPm = [
-      "12",
-      "1",
-      "2",
-      "3",
-      "4",
-      "5",
-      ];
+      // var timeOfDayPm = [
+      // ];
 
-      var currentTime = moment().format("LT");
+      var currentTime = moment().hours();
       currentTime
       console.log(+currentTime);
 
       $("#currentDay").text(moment().format("MMMM Do YYYY, h:mm:ss a"));
 
-      $.each(timeOfDayAm, function (i) {
+      $.each(timeOfDay, function (i) {
         // create a variable for the current time pulled from the array by index
-        var hour = timeOfDayAm[i];
+        var hour = timeOfDay[i];
 
         // Creates a new div to hold the time column
         var col = $('<div>');
         col.addClass('col-1 border hour');
-        col.text(hour + "AM");
+        col.text(hour);
 
         // creates new field for input in middle column
         var inputField = $('<input>');
         inputField.addClass('col-10 border');
         inputField.attr('id', [i] + 'userInput');
+        inputField.attr('data', [i])
 
         // creates a save button 
         var saveBtn = $('<button>');
@@ -82,54 +83,35 @@
         var row = $('<div>');
         row.addClass('row');
         row.append(col, inputField, saveBtn);
-
-        // execute
-        if (hour > currentTime) {
-
-        }
-
+        
+        hour = +hour
+        console.log(hour);
+     
         // Appends the new row to the container div
         $('.container').append(row);
       })
       
-      $.each(timeOfDayPm, function (i) {
-        // create a variable for the current time pulled from the array by index
-        var hour = timeOfDayPm[i];
+      // iterates through each each input field ID and assigns the class of present, past or future depending on a comparison to the current time (stored in a variable globally)
+      for (i = 0; i < timeOfDay.length; i++) {
+        // grabs current event by userInput ID
+        var event = $('#' + [i] + 'userInput');
+        // Assigns the data value for the current event to a variable
+        var eventTime = event.data;
+        // Tests if the time of the event has happened yet and assigns a class accordingly
+        if (eventTime == currentTime) {
+          event.addClass('present')
+        } else if (eventTime > currentTime){
+          event.addClass('future') 
+        } else {
+          event.addClass('past')
+        }
+      }
 
-        // Creates a new div to hold the time column
-        var col = $('<div>');
-        col.addClass('col-1 border hour');
-        col.text(hour + "PM");
-
-        // creates new field for input in middle column
-        var inputField = $('<input>');
-        inputField.addClass('col-10 border');
-        inputField.attr('id', [i] + 'userInput');
-
-        // creates a save button 
-        var saveBtn = $('<button>');
-        saveBtn.addClass('col-1 border saveBtn');
-        saveBtn.attr('id', [i] + 'userSave');
-        saveBtn.text('Save');
-        
-        // Creates the row that will hold the time, input field and save button
-        var row = $('<div>');
-        row.addClass('row');
-        row.append(col, inputField, saveBtn);
-
-        // Appends the new row to the container div
-        $('.container').append(row);
-      })
-
-
-
-      // function timeCheck() {
-      //   if ($('.hour') < currentTime) {
-      //     $('.hour').addClass('.past');
-      //   }
+      // for (i = 0; i < timeOfDay.length; i++) {
+      //   var userEvent = 
       // }
 
-      // timeCheck();
+  
     </script>
   </body>
 </html>

@@ -84,8 +84,8 @@
         row.addClass('row');
         row.append(col, inputField, saveBtn);
         
-        hour = +hour
-        console.log(hour);
+        // hour = +hour
+        // console.log(hour);
      
         // Appends the new row to the container div
         $('.container').append(row);
@@ -107,9 +107,25 @@
         }
       }
 
-      // for (i = 0; i < timeOfDay.length; i++) {
-      //   var userEvent = 
-      // }
+      for (i = 0; i < timeOfDay.length; i++) {
+        // grabs the key name from local storage object and stores in a variable
+        var userEvent = localStorage.getItem([i] + "dayPlan");
+        // If storage item exists, it will 
+        if (userEvent) {
+          $('#' + [i] + 'userInput').val(userEvent);
+        }
+      }
+
+      $('.saveBtn').on('click', function() {
+        // retrieves id from save button
+        var saveID = $(this).attr('id');
+        // extracts first character from id name string
+        var idNumber = saveID.charAt(0);
+        // Assigns the the value within the input field to variable
+        var inputMatch = $('#' + idNumber + 'userInput').val();
+        // Stores value of input in local storage object
+        localStorage.setItem(idNumber + 'dayPlan', inputMatch)
+      })
 
   
     </script>

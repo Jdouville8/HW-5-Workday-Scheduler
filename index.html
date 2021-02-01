@@ -100,9 +100,9 @@
         // Assigns the data value for the current event to a variable
         var eventTime = event.data;
         // Tests if the time of the event has happened yet and assigns a class accordingly
-        if (eventTime == currentTime) {
+        if (eventTime == (currentTime - 9)) {
           event.addClass('present')
-        } else if (eventTime > currentTime){
+        } else if (eventTime > (currentTime - 9)){
           event.addClass('future') 
         } else {
           event.addClass('past')
